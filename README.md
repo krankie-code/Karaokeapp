@@ -41,10 +41,10 @@ Karaoke App is an application made for those who enjoy singing. Sharing their ow
 | `PUT`      | `/private/edit-profile`       | Private route. Sends edit-profile info to server and updates user in DB. | { email, password, [firstName], [lastName], [imageUrl] } |
 | `GET`      | `/private/favorites`          | Private route. Render the `favorites` view.                  |                                                          |
 | `POST`     | `/private/favorites/`         | Private route. Adds a new favorite for the current user.     | { name, cuisine, city, }                                 |
-| `DELETE`   | `/private/favorites/:songtId` | Private route. Deletes the existing favorite from the current user. ||
+| `PUT` | `/private/favorites/:songtId` | Private route. Deletes the existing favorite from the current user. ||
 | `DELETE`   | `/private/songs/:songId` | Private route. Deletes the existing songs from the current user. ||
 | `GET`      | `/search`                     | Renders `search-bar` view.                                   |                                                          |
-| `GET`      | `/search/details/:id`         | Render `song` view with the particular video.                |                                                          |
+| `GET` | `/search/details?text=something` | Render `song` view with the particular video.                |                                                          |
 
 
 ## 
@@ -53,19 +53,13 @@ User model
 
 ```
 {
-  name: String,
-  email: String,
-  password: String,
-  songs:[Songs],
-  favorites: [FavoriteId],
-}
-```
+  name: {type: String},
+  email: {type: String, required: true},
+  password: {type: String, required: true},
+  songs:{type: Array},
+  profilepic: {type: String, dedault: ""},
+  favouriteSongs: [{Type: Schema.Types.ObjectId, ref: "Song"}]
 
-Favorites model
-
-```
-{
-  placeId: String,
 }
 ```
 
@@ -73,11 +67,14 @@ Songs
 
 ```
 {
-  Songs: String,
+  artist: {type: String},
+  userId: {Type: Schema.Types.ObjectId, ref: "User"},
+  title: {type: String},
+  song: {type: String}
 }
 ```
 
-Songs
+
 
 ## Backlog
 
@@ -87,7 +84,7 @@ Songs
 
 ## Links
 
-### Git
+### GitHub
 
 The url to your repository and to your deployed project
 
