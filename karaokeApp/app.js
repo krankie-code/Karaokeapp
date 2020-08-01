@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 mongoose
-  .connect("mongodb://localhost/karaokeApp", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -24,6 +24,8 @@ mongoose
   });
 var authRouter = require("./routes/auth");
 var indexRouter = require("./routes/index");
+var profileRouter = require('./routes/profile');
+
 var app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -48,6 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //colocamos las rutas públicas primero
 app.use("/", authRouter);
 app.use("/", indexRouter);
+app.use('/', profileRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
