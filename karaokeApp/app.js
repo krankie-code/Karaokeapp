@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 mongoose
-  .connect("mongodb://localhost/library-project", {
+  .connect("mongodb://localhost/karaokeApp", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
