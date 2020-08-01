@@ -31,7 +31,7 @@ app.set("view engine", "hbs");
 // Middleware Setup
 app.use(session({
   secret: "basic-auth-secret",
-  cookie: { maxAge: 60000 },
+  cookie: { maxAge: 600000 },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60 // 1 day
@@ -61,4 +61,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+//Default value for local title
+app.locals.title = 'KaraopeAppW'
+
 module.exports = app;

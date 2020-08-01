@@ -44,7 +44,7 @@ router.post('/signup', parser.single('profilepic'),( req,res,next) => {
         User.create(newUser)
             .then((data)=>{
                 console.log('User added successfully');
-                res.render('index',{newUser});
+                res.render('auth/login',{newUser});
             } )
             .catch(err  => {
                 res.render('auth/signup', { errorMessage:' error while creating new user'});

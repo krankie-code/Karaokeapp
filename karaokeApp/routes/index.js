@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/index', function(req, res, next) {
-  res.render('index', { title: 'KaraokeApp' });
+  res.render('index');
 });
 
 module.exports = router;
