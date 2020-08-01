@@ -1,100 +1,109 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
 
-const User = require('./../models/user')
-
+const User = require('../models/user');
+const parser = require('./../config/cloudinary');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 
-router.get('/signup', (req, res, next)=>{
-    res.render('auth/signup',{
-        errorMessage:''
-    });
+// GET '/signup'
+router.get('/signup', (req, res, next) => {
+  res.render('auth/signup');
 });
 
-router.post('/signup', async (req,res,next)=>{
-    const {name,email,password} = req.body;
+router.post('/signup', parser.single('profilepic'),( req,res,next) => {
+    
+    // 1 destrcture username and password    
+    const { name,email,password} = req.body;
+    
+    if (typeof req.file != 'undefined') {
+        image_url= req.file.secure_url;
+    } else {
+        image_url= '../public/images/avatar.png';
+    }
 
-    if(email === '' || password === ''){
-        res.render('auth/signup', {errorMessage:`There's already an account with the email ${email}`});
+
+    if ( name ==='' || password === '' || email ==='' ){
+        res.render('auth/signup', {errorMessage:'Provide valid inputs'});
         return;
-    }
-    try {
-        const findUser = await User.findOne({email:email})
+    } 
 
-        if(findUser){
-            res.render('auth/signup',{errorMessage: `There is already an account with this email :${email}`})
-            return;
-        }
-
+    User.findOne({name})
+        .then( (user) =>{
+            if(user) {
+                res.render('auth/signup', {errorMessage: 'User already created'});
+                return;
+            }
+        // id doesn't exists generate salts ans hash
         const salt = bcrypt.genSaltSync(saltRounds);
-        const hash = bcrypt.hashSync(password, salt)
+        const hashedPassword = bcrypt.hashSync(password,salt);
 
-        await User.create({name , email, password : hash})
-        res.redirect('/login');
-    } catch (error) {
-        res.render('auth/singup', {errorMessage : `Error while creating account. Please try again.`})
-    }
+        // once user is encrypted we add to db
+        const newUser = {name,email, password: hashedPassword, profilepic: image_url}
+        User.create(newUser)
+            .then((data)=>{
+                console.log('User added successfully');
+                res.render('index',{newUser});
+            } )
+            .catch(err  => {
+                res.render('auth/signup', { errorMessage:' error while creating new user'});
+            });
 
+    })// end of then
+    .catch( (err) => console.log(err));
+})// end of post
+
+router.get('/login',(req,res,next)=>{
+    res.render('auth/login');
 })
 
-    router.get('/login', (req,res,next)=>{
-        res.render('auth/login',{
-            errorMessage: ''
-        });
-    });
 
-    router.post('/login', async (req,res,next)=>{
-        const {email, password} = req.body;
+// POST /auth/login
+router.post('/login', (req, res, next) => {
+    // Deconstruct the username and the password
+    const {email, password: enteredPasword} = req.body;
+    console.log(req.body);
+    
 
-        if(email === '' | password === ''){
-            res.render('auth/login', {errorMessage :'Enter both email and password to log in'
-        });
+    // check if username and password are empty strings
+    if ( email ==='' || enteredPasword === ''){
+        res.render('auth/login', {errorMessage:'Provide email and password'});
+        console.log('Provide email and password');
         return;
-        }
-        try {
-        const foundUser = await User.findOne({email:email})
-        console.log(foundUser);
-            if(!foundUser){
-                res.render('auth/login',{
-                    errorMessage:`Invalid email ${email}`
+    }
 
-                })
+    // Find the user by username
+    User.findOne( {email} )
+        .then( (user) => {
+            // If doesn't exist - return error
+            
+            if(!user) {
+                res.render('auth/login', {errorMessage:"Username doesn't exist"});
                 return;
             }
-            if(!bcrypt.compareSync(password, foundUser.password )){
-                res.render('auth/login',{
-                    errorMessage : `Invalid password`
-                })
+
+            // If username exists - check if the pswd is correct
+            const hashedPasswordFromDb = user.password;
+            const passwordCorrect = bcrypt.compareSync(enteredPasword, hashedPasswordFromDb);
+
+            // If password is correct - create session and cookie and redirect
+            console.log('passwordCorrect -->', passwordCorrect);
+            
+            if (passwordCorrect) {
+                console.log('correct pswd');
+                
+                // Save the login in the session (and create cookie)
+                // And redirect the user
+                req.session.currentUser = user;
+                res.redirect('/index');
+                console.log('logged in');
+            } else {
+                res.render('auth/login', {errorMessage:"Incorrect password !"});
                 return;
             }
-            req.session.currentUser = foundUser;
-             res.redirect('/');
-
-        } catch (error) {
-            res.render('auth/login', {errorMessage : `Error while creating account. Please try again.`})
-        }
-    })
-
-    
-    router.get('/logout', (req, res, next) => {
-        if (!req.session.currentUser) {
-        res.redirect('/');
-        return;
-        }
-    
-        req.session.destroy((err) => {
-        if (err) {
-            next(err);
-            return;
-        }
-    
-        res.redirect('/');
-        });
-    });
-  
-  
-  module.exports = router;
+        })
+        .catch( (err) => next(err));
+});
 
 module.exports = router;

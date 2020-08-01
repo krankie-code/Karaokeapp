@@ -7,6 +7,8 @@ const songSchema = Schema ({
   title: {type: String},
   song: {type: String}
 
+},{
+  timestamp:true
 })
 
 const Song = mongoose.model('Song', songSchema);

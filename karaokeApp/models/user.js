@@ -7,7 +7,7 @@ const userSchema = Schema ({
   password: {type: String, required: true},
   songs:{type: Array},
   profilepic: {type: String, dedault: ""},
-  favouriteSongs: [{Type: Schema.Types.ObjectId, ref: "Song"}]
+  favouriteSongs: [{type: Schema.Types.ObjectId, ref: "Song"}]
 })
 
 const User = mongoose.model('User', userSchema);
