@@ -15,13 +15,15 @@ router.get('/signup', (req, res, next) => {
 router.post('/signup', parser.single('profilepic'),( req,res,next) => {
     
     // 1 destrcture username and password    
-    const { name,email,password} = req.body;
+ const { name,email,password} = req.body;
     
-    if (typeof req.file != 'undefined') {
+console.log(req.file.secure_url)
+ const image_url = req.file.secure_url
+  /*   if (typeof req.file != 'undefined') {
         image_url= req.file.secure_url;
     } else {
         image_url= '../public/images/avatar.png';
-    }
+    } */
 
 
     if ( name ==='' || password === '' || email ==='' ){
@@ -44,7 +46,7 @@ router.post('/signup', parser.single('profilepic'),( req,res,next) => {
         User.create(newUser)
             .then((data)=>{
                 console.log('User added successfully');
-                res.render('auth/login',{newUser});
+                res.render('auth/login');
             } )
             .catch(err  => {
                 res.render('auth/signup', { errorMessage:' error while creating new user'});
