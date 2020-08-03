@@ -23,7 +23,7 @@ router.post('/signup', parser.single('profilepic'),( req,res,next) => {
     if (typeof req.file != 'undefined') {
         image_url= req.file.path;
     } else {
-        image_url= '../public/images/avatar.png';
+        image_url= '../images/avatar.png';
     } 
 
 
@@ -111,7 +111,7 @@ router.post('/login', (req, res, next) => {
 //logout 
 router.get('/logout', (req, res, next) => {
     if (!req.session.currentUser) {
-    res.redirect('/login');
+    res.redirect('/auth/login');
     return;
     }
 
@@ -121,7 +121,7 @@ router.get('/logout', (req, res, next) => {
         return;
     }
 
-    res.redirect('/login');
+    res.redirect('/auth/login');
     });
 });
 

@@ -5,7 +5,8 @@ const songSchema = Schema ({
   artist: {type: String},
   userId: {type: Schema.Types.ObjectId, ref: "User"},
   title: {type: String},
-  song: {type: String}
+  song: {type: String},
+  description:{type:String}
 
 },{
   timestamp:true
