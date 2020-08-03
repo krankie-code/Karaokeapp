@@ -4,10 +4,16 @@ var router = express.Router();
 
 const User = require('../models/user');
 const Song = require('../models/song');
-const { get } = require('mongoose');
+
 
 router.get('/userprofile', (req,res,next) =>{
-res.render('profiles/userprofile')
+    const {_id} = req.session.currentUser
+    User.findOne({_id})
+    .then((user)=>{
+        res.render('profiles/userprofile', {newUser: user})
+
+    })
+    .catch((error)=>res.render('profiles/userprofile',{error : `RIP`}) )
 })
    /*  const userId = req.session.currentUser._id;
     let favToPrint = [];

@@ -16,14 +16,15 @@ router.post('/signup', parser.single('profilepic'),( req,res,next) => {
     
     // 1 destrcture username and password    
  const { name,email,password} = req.body;
-    
-console.log(req.file.secure_url)
- const image_url = req.file.secure_url
-  /*   if (typeof req.file != 'undefined') {
-        image_url= req.file.secure_url;
+        /* console.dir(req.file)
+        console.log(req.file.secure_url) */
+    let image_url;
+ 
+    if (typeof req.file != 'undefined') {
+        image_url= req.file.path;
     } else {
         image_url= '../public/images/avatar.png';
-    } */
+    } 
 
 
     if ( name ==='' || password === '' || email ==='' ){
@@ -106,6 +107,22 @@ router.post('/login', (req, res, next) => {
             }
         })
         .catch( (err) => next(err));
+});
+//logout 
+router.get('/logout', (req, res, next) => {
+    if (!req.session.currentUser) {
+    res.redirect('/login');
+    return;
+    }
+
+    req.session.destroy((err) => {
+    if (err) {
+        next(err);
+        return;
+    }
+
+    res.redirect('/login');
+    });
 });
 
 

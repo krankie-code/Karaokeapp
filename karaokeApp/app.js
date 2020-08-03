@@ -33,7 +33,7 @@ app.set("view engine", "hbs");
 // Middleware Setup
 app.use(session({
   secret: "basic-auth-secret",
-  cookie: { maxAge: 600000 },
+  cookie: { maxAge: 6000000000 },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60 // 1 day
@@ -41,6 +41,18 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+//res.locals es el objeto que usamos para pasar datos a las vistas
+app.use((req, res, next) => {
+  
+  if (req.session.currentUser) {
+    res.locals.currentUserInfo = req.session.currentUser;
+    res.locals.isUserLoggedIn = true;
+  } else {
+    res.locals.isUserLoggedIn = false;
+  }
+
+  next();
+});
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
