@@ -37,7 +37,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 // Middleware Setup
 app.use(session({
-  secret: "basic-auth-secret",
+  secret: process.env.SESSION_SECRET,
   cookie: { maxAge: 6000000000 },
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
