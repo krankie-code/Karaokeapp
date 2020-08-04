@@ -1,10 +1,10 @@
-# KaraokeApp
+# K-Recorder
 
 
 
 ## Description
 
-Karaoke App is an application made for those who enjoy singing. Sharing their own records and having access to other's.
+K-Recorder is an application made for those who enjoy singing. Sharing their own records and having access to other's.
 
 
 
