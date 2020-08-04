@@ -14,9 +14,6 @@ const isLoggedIn = (req, res, next) => {
     }  
   }
 
-
-
-
 router.get('/userprofile', isLoggedIn,(req,res,next) =>{
     const userId = req.session.currentUser._id;
     let favToPrint = [];
@@ -33,14 +30,9 @@ router.get('/userprofile', isLoggedIn,(req,res,next) =>{
     })
     .catch((error)=>res.render('profiles/userprofile',{error : `RIP`}) )
 
-
-
-
-
 })
-    
-        
-    
 
+
+    
 
 module.exports = router;

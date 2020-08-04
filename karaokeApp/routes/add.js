@@ -14,10 +14,11 @@ router.get('/add', function(req, res, next) {
 router.post('/add',parser.single('songfile'),(req,res,next)=>{
     const {description, title, artist, song} = req.body
 
-    if ( name ==='' || password === '' || email ==='' ){
+    if ( description ==='' || title === '' || artist ==='' ){
         res.render('auth/signup', {errorMessage:'Provide valid inputs'});
         return;
     } 
+    const newSong = {description, title, artist, song}
     Song.create(newSong)
     .then((data)=>{
         console.log('Song added successfully');

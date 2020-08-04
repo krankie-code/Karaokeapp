@@ -9,7 +9,7 @@
     {{#if isUserLoggedIn}}
      <li> <a href="/launderers"> Find a Launderer </a> </li>
       <li> <a href="/dashboard"> See Dashboard </a> </li>
-      <li> <a href="/logout"> Log Out </a> </li>
+      <li> <a href="auth/logout"> Log Out </a> </li>
     {{else}}
       <li> <a href="/signup"> Sign Up </a> </li>
       <li> <a href="/login"> Log In </a> </li>
@@ -17,8 +17,5 @@
   </ul>
 </nav>
 
-<form action="/post/index/{{newUser._id}}" method="post" class="delete-profile">
-        <button>Delete profile</button>
-    </form>
 
     {{>navbar}}
