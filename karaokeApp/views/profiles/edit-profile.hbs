@@ -26,8 +26,9 @@
 
         <button type='submit'>Edit profile</button>
     </form>
-    <form action="/edit/edit-profile/delete/{{newUser._id}}" method="post" class="delete-profile">
-        <button><a>Delete profile</a></button>
+    <form action="/edit/delete/{{newUser._id}}" method="post" class="delete-profile">
+        <button>Delete profile</button>
     </form>
     {{!-- {{> navbar}} --}}
+     {{>navbar}}
 </main>

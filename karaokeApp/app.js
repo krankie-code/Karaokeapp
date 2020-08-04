@@ -29,6 +29,7 @@ var editprofileRouter = require('./routes/edit-profile');
 var searchRouter = require('./routes/search')
 var songRouter = require('./routes/song-display')
 var homeRouter = require('./routes/home')
+var addRouter = require('./routes/add');
 
 var app = express();
 // view engine setup
@@ -62,6 +63,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+hbs.registerPartials(__dirname + '/views/partials')
 //app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 //colocamos las rutas públicas primero
 app.use("/auth", authRouter);
@@ -71,6 +73,7 @@ app.use('/edit',editprofileRouter);
 app.use('/',searchRouter);
 app.use('/', songRouter);
 app.use('/', homeRouter)
+app.use('/', addRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
