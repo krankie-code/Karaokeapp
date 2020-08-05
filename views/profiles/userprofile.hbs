@@ -1,0 +1,58 @@
+    <div>
+    <a href="#" onclick="history.go(-1)"><i class="fa fa-arrow-left"></i></a>
+    </div>
+
+<main class="profile">
+  <section class="user">
+    <div class="user__top">
+      <img class="user__img" src="{{newUser.profilepic}}" alt="">
+      <a href="/edit/edit-profile">Edit profile</a>
+    </div>
+    <h1>{{newUser.name}}</h1>
+    <p>{{newUser.bio }}</p>
+  </section>
+  <section class="profile__selector">
+    <button id="btn-my-songs" class="selected">My songs</button>
+    <button id="btn-fav-songs" class="not-selected">My favourites</button>
+    <button id="btn-rooms" class="not-selected">Upcoming rooms</button>
+  </section> 
+  <section>
+   {{!--  {{newUser}} --}}
+  {{#each newUser.posts}}
+  {{this.artist}}
+  {{this.description}}
+  {{this.title}}
+  <audio controls>
+    <source  src="{{this.song}}" type = 'audio/mpeg'>
+  {{/each}}
+
+ {{!--  </audio>
+  {{#each newUser.favouriteSongs}}
+  {{this.artist}}
+  {{this.description}}
+  {{this.title}}
+  audio controls>
+    <source  src="{{this.song}}" type = 'audio/mpeg'>
+
+  </audio>
+  {{/each}}
+ --}}
+  </section>
+  {{#if error}}
+  <div>
+    <p>{{error}}</p>
+  </div>
+  {{/if}}
+  {{!-- <section class="profile__my-quotes">
+    {{#each quotes}}
+      {{>quoteCard this}}
+    {{/each}}
+  </section>
+  <section class="profile__fav-quotes">
+    {{#each userFav}}
+      {{>quoteCard this}}
+    {{/each}}
+  </section>
+  {{>navbar}} --}}
+  {{>navbar}}
+</main>
