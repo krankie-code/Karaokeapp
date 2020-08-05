@@ -12,7 +12,15 @@
     <button id="btn-fav-songs" class="not-selected">My favourites</button>
     <button id="btn-rooms" class="not-selected">Upcoming rooms</button>
   </section>
-
+<section>
+  {{#each newUser.posts}}
+  {{this.artist}}
+  {{this.description}}
+  {{this.title}}
+  <audio controls>
+    <source src="{{this.song}}" type='audio/mpeg'>
+    {{/each}}
+</section>
   {{#if error}}
   <div>
     <p>{{error}}</p>

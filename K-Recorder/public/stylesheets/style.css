@@ -62,3 +62,20 @@ button:focus {
 #controls>button:first-child {
   margin-left: 0;
 }
+
+audio {
+  display: block;
+  width: 100%;
+  margin-top: 0.2rem;
+}
+
+#recordingsList>li {
+  max-width: 25rem;
+  list-style: none;
+  margin-bottom: 1rem;
+}
+
+#formats {
+  margin-top: 0.5rem;
+  font-size: 80%;
+}
