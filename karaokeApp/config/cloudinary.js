@@ -12,11 +12,10 @@ cloudinary.config({
 
 var storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  folder: 'my-project-images',
-  allowedFormats: ['jpg', 'png', 'jpeg', 'gif','mp3','wav'],
-  params: { resource_type: 'raw' },
-  filename:function(req,file,cb){
-    cb(null,file.originalname);
+  folder: 'audio-files',
+  allowedFormats: ['jpg', 'png', 'jpeg', 'gif', 'mp3', 'wav'],
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
   },
   transformation: [{ width: 500, height: 500, crop: 'limit' }]
 
