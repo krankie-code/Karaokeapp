@@ -92,6 +92,6 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 //Default value for local title
-app.locals.title = 'KaraopeAppW'
+app.locals.title = 'K-Recorder'
 
 module.exports = app;

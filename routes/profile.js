@@ -19,7 +19,7 @@ router.get('/userprofile', isLoggedIn,(req,res,next) =>{
     let favToPrint = [];
     User.findById(userId)
     .populate({
-        path : 'favouriteSongs',
+        path : 'favouriteSongs posts' , 
         populate : {
           path : 'userId'
         }
@@ -31,6 +31,20 @@ router.get('/userprofile', isLoggedIn,(req,res,next) =>{
     .catch((error)=>res.render('profiles/userprofile',{error : `RIP`}) )
 
 })
+
+//delete your own posts
+
+router.post('/delete/:id', (req,res,next) => {
+  const { id } = req.params
+  console.log(req.params)
+  console.log("paramss de get ",id);
+  Song.findByIdAndDelete(id)
+  .then(()=>{
+    res.render('users/profile')
+  })
+  .catch((err) => {console.log(err);
+  })
+});
 
 
     
