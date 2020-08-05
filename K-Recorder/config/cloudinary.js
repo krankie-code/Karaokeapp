@@ -1,5 +1,7 @@
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const {
+  CloudinaryStorage
+} = require('multer-storage-cloudinary');
 const multer = require('multer');
 
 require('dotenv').config()
@@ -17,10 +19,16 @@ var storage = new CloudinaryStorage({
   filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
-  transformation: [{ width: 500, height: 500, crop: 'limit' }]
+  transformation: [{
+    width: 125,
+    height: 125,
+    crop: 'limit'
+  }]
 
 });
 
-const parser = multer({ storage: storage });
+const parser = multer({
+  storage: storage
+});
 
 module.exports = parser;

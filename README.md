@@ -1,13 +1,13 @@
-# KaraokeApp
+# K-Recorder
 
 ​
 ​
 ## Description
 
-Karaoke App is an application made for those who enjoy singing. Sharing their own records and having access to other's.
-​
-​
-​
+K-Recorder is an application made for those who enjoy singing. Sharing their own records and having access to other's.
+
+
+
 ## User Stories
 
 - **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault
