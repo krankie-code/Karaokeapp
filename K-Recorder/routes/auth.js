@@ -15,7 +15,7 @@ router.get('/signup', (req, res, next) => {
 router.post('/signup', parser.single('profilepic'),( req,res,next) => {
     
     // 1 destrcture username and password    
- const { name,email,password} = req.body;
+ const { name,email,password, bio} = req.body;
         /* console.dir(req.file)
         console.log(req.file.secure_url) */
     let image_url;
@@ -43,7 +43,7 @@ router.post('/signup', parser.single('profilepic'),( req,res,next) => {
         const hashedPassword = bcrypt.hashSync(password,salt);
 
         // once user is encrypted we add to db
-        const newUser = {name,email, password: hashedPassword, profilepic: image_url}
+        const newUser = {name,email, password: hashedPassword, profilepic: image_url, bio}
         User.create(newUser)
             .then((data)=>{
                 console.log('User added successfully');

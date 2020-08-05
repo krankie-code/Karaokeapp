@@ -3,11 +3,11 @@
 
 <form action="/auth/signup" method="post" enctype="multipart/form-data">
     <div>
-       <label for=''>Picture</label>
-    <label class="custom-file-upload">
-      <input id="up-image" type="file" name='profilepic'>
-      <span>Upload pic</span>
-    </label>
+        <label for=''>Picture</label>
+        <label class="custom-file-upload">
+            <input id="up-image" type="file" name='profilepic'>
+            <span>Upload pic</span>
+        </label>
 
     </div>
     <div>
@@ -24,8 +24,10 @@
         <label for="password-input"> Password </label>
         <input type="password" name="password" id="password-input" placeholder="e.g., ••••••••••••">
     </div>
+    <label for=''>Bio</label>
+    <input type='text' name='bio' placeholder="catch phrase ">
 
-    <button> Create New Account </button>
+    <button type="submit"> Create New Account </button>
 </form>
 
 <p>

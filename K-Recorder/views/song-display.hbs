@@ -1,4 +1,23 @@
+<<<<<<< HEAD
 <div>
 <a href="#" onclick="history.go(-1)"><i class="fa fa-arrow-left"></i></a>
+=======
+<h1>K-Recorder</h1>
+{{!-- Here will go the youtube iFrame --}}
+{{!-- Here goes the recorder --}}
+
+<div class="record-container">
+    <div id="controls">
+        <button id="recordButton">Record</button>
+        <button id="stopButton" disabled>Stop</button>
+    </div>
+    <p>Convert audio to:</p>
+    <select id="encodingTypeSelect">
+        <option value="mp3">MP3 (MPEG-1 Audio Layer III) (.mp3)</option>
+        <option value="wav">Waveform Audio (.wav)</option>
+    </select>
+    <pre>Recordings</pre>
+    <ol id="recordingsList"></ol>
+>>>>>>> 4c208e0b42cf351b0c39be0bdb766413af09316b
 </div>
 {{>navbar}}

@@ -1,5 +1,28 @@
+<<<<<<< HEAD
 <div>
 <a href="#" onclick="history.go(-1)"><i class="fa fa-arrow-left"></i></a>
 </div>
 <h1>go</h1>
 {{>navbar}}
+=======
+<main>
+<main>
+    <div class="private-header">
+        <button id="back-arrow"><img src="/images/arrow.svg" alt=""></button>
+        <h1>Search quote</h1>
+    </div>
+    <form action='/search' method='POST' class="search-quote">
+        <input type='text' name='quote' placeholder="Love"></input>
+        <button type='submit'><img src="/images/search.svg" alt=""></button>
+    </form>
+{{!-- 
+    {{#if errorMessage}}
+    <div class="err-message">{{errorMessage}}</div>
+    {{/if}}
+
+    {{#each matchQuotes}}
+    {{> quoteCard this}}
+    {{/each}} --}}
+{{<navbar}}
+</main>
+>>>>>>> 4c208e0b42cf351b0c39be0bdb766413af09316b
