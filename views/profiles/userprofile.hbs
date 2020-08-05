@@ -24,9 +24,19 @@
   {{this.title}}
   <audio controls>
     <source  src="{{this.song}}" type = 'audio/mpeg'>
+  {{/each}}
+
+ {{!--  </audio>
+  {{#each newUser.favouriteSongs}}
+  {{this.artist}}
+  {{this.description}}
+  {{this.title}}
+  audio controls>
+    <source  src="{{this.song}}" type = 'audio/mpeg'>
 
   </audio>
   {{/each}}
+ --}}
   </section>
   {{#if error}}
   <div>
