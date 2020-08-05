@@ -19,7 +19,7 @@ router.post('/delete/:id', (req, res, next) => {
     router.post('/edit-profile', parser.single('profilepic'),( req,res,next) => {
         const userId = req.session.currentUser._id;
         // 1 destrcture username and password    
-     const { name,email,password,profilepic,bio} = req.body;
+     const { name,email,password,bio} = req.body;
             /* console.dir(req.file)
             console.log(req.file.secure_url) */
         let image_url;

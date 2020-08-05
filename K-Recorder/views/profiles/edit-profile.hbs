@@ -1,25 +1,25 @@
 <main class="profile">
     <div class="private-header">
-        <button id="back-arrow"><img src="/images/arrow.svg" alt=""></button>
-        <h1>Edit profile</h1>
+        {{!-- <button id="back-arrow"><img src="/images/arrow.svg" alt=""></button> --}}
+        <h2>Edit your profile</h2>
         <a href="/routes/auth" class="logout-btn"><img src="/images/logout.svg" alt=""></a>
     </div>
     <form action="/edit/edit-profile" method="post" enctype="multipart/form-data">
         <img class="user__img" src="{{newUser.profilepic}}" alt="">
         <label class="custom-file-upload" style="margin-top: 10px;">
-            <input id="up-image" type="file" name='picture'>
-            <span>Change pic</span>
+            <input id="up-image" type="file" name='profilepic'>
+            <span>Change picture</span>
         </label>
 
-        <label for=''>Username</label>
-        <input type='text' name='username' value="{{newUser.name}}">
+        <label for=''>Name</label>
+        <input type='text' name='name' value="{{newUser.name}}">
 
         <label for=''>Password</label>
         <input type='password' name='password' value="{{newUser.password}}">
 
         <label for=''>Email</label>
         <input type='email' name='email' value="{{newUser.email}}">
-        
+
 
         <label for=''>Bio</label>
         <input type='text' name='bio' value="{{newUser.bio}}">
@@ -29,6 +29,5 @@
     <form action="/edit/delete/{{newUser._id}}" method="post" class="delete-profile">
         <button>Delete profile</button>
     </form>
-    {{!-- {{> navbar}} --}}
-     {{>navbar}}
+    {{>navbar}}
 </main>

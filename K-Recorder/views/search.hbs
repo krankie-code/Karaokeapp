@@ -1,1 +1,20 @@
-<h1>go</h1>
+<main>
+<main>
+    <div class="private-header">
+        <button id="back-arrow"><img src="/images/arrow.svg" alt=""></button>
+        <h1>Search quote</h1>
+    </div>
+    <form action='/search' method='POST' class="search-quote">
+        <input type='text' name='quote' placeholder="Love"></input>
+        <button type='submit'><img src="/images/search.svg" alt=""></button>
+    </form>
+{{!-- 
+    {{#if errorMessage}}
+    <div class="err-message">{{errorMessage}}</div>
+    {{/if}}
+
+    {{#each matchQuotes}}
+    {{> quoteCard this}}
+    {{/each}} --}}
+{{<navbar}}
+</main>
