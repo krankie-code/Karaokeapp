@@ -1,39 +1,3 @@
-/* var express = require('express');
-var router = express.Router();
-
-var Song = require('../models/song')
-const parser = require('./../config/cloudinary');
- */
-
-/* GET home page. */
-
-/* router.get('/add', function(req, res, next) {
-  res.render('add');
-});
-
-router.post('/add',parser.single('songfile'),(req,res,next)=>{
-    const {description, title, artist, song} = req.body
-
-    if ( description ==='' || title === '' || artist ==='' ){
-        res.render('auth/signup', {errorMessage:'Provide valid inputs'});
-        return;
-    } 
-    const newSong = {description, title, artist, song}
-    Song.create(newSong)
-    .then((data)=>{
-        console.log('Song added successfully');
-        res.render('index');
-    } )
-    .catch(err  => {
-        res.render('add', { errorMessage:' error while creating new song'});
-    });
-
-})
-
-
-
-module.exports = router;
- */
 
 var express = require('express');
 var router = express.Router();
@@ -46,6 +10,7 @@ const multer = require('multer');
 
 const upload = multer();
 const fs = require('fs'); //use the file system to save the files on the server
+const User = require('../models/user');
 
 
 
@@ -56,7 +21,7 @@ router.get('/add', function (req, res, next) {
 });
 
 router.post('/add', upload.single('songfile'), (req, res, next) => {
-
+    const userId = req.session.currentUser._id
     const { description, title, artist, song } = req.body;
 
     if (description === '' || title === '' || artist === '') {
@@ -82,11 +47,16 @@ router.post('/add', upload.single('songfile'), (req, res, next) => {
                     if (deleteErr) res.status(500).send(deleteErr);
                     console.log('temp file was deleted');
 
-                    const newSong = { description, title, artist, song: result.secure_url };
+                    const newSong = { description, title, artist, song: result.secure_url,userId };
                     Song.create(newSong)
                         .then((song) => {
                             console.log('Song added successfully');
+                            User.findByIdAndUpdate(userId,{$push:{posts:song._id}})
+                            .then((updatedUser)=>{
+                            
                             res.render('index');
+                                
+                            })
                         })
                         .catch(err => {
                             res.render('add', { errorMessage: ' error while creating new song' });
@@ -101,3 +71,4 @@ router.post('/add', upload.single('songfile'), (req, res, next) => {
 })// end of then
 
 module.exports = router;
+ 

@@ -1,7 +1,7 @@
     <div>
     <a href="#" onclick="history.go(-1)"><i class="fa fa-arrow-left"></i></a>
     </div>
-{{newUser}}
+
 <main class="profile">
   <section class="user">
     <div class="user__top">
@@ -16,7 +16,18 @@
     <button id="btn-fav-songs" class="not-selected">My favourites</button>
     <button id="btn-rooms" class="not-selected">Upcoming rooms</button>
   </section> 
+  <section>
+   {{!--  {{newUser}} --}}
+  {{#each newUser.posts}}
+  {{this.artist}}
+  {{this.description}}
+  {{this.title}}
+  <audio controls>
+    <source  src="{{this.song}}" type = 'audio/mpeg'>
 
+  </audio>
+  {{/each}}
+  </section>
   {{#if error}}
   <div>
   <p>{{error}}</p>

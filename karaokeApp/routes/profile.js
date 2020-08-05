@@ -19,7 +19,7 @@ router.get('/userprofile', isLoggedIn,(req,res,next) =>{
     let favToPrint = [];
     User.findById(userId)
     .populate({
-        path : 'favouriteSongs',
+        path : 'favouriteSongs posts' , 
         populate : {
           path : 'userId'
         }
@@ -31,6 +31,7 @@ router.get('/userprofile', isLoggedIn,(req,res,next) =>{
     .catch((error)=>res.render('profiles/userprofile',{error : `RIP`}) )
 
 })
+
 
 
     

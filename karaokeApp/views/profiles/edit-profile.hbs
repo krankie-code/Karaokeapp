@@ -10,12 +10,12 @@
     <form action="/edit/edit-profile" method="post" enctype="multipart/form-data">
         <img class="user__img" src="{{newUser.profilepic}}" alt="">
         <label class="custom-file-upload" style="margin-top: 10px;">
-            <input id="up-image" type="file" name='picture'>
+            <input id="up-image" type="file" name='profilepic'>
             <span>Change pic</span>
         </label>
 
-        <label for=''>Username</label>
-        <input type='text' name='username' value="{{newUser.name}}">
+        <label for=''>name</label>
+        <input type='text' name='name' value="{{newUser.name}}">
 
         <label for=''>Password</label>
         <input type='password' name='password' value="{{newUser.password}}">
