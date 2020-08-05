@@ -32,6 +32,19 @@ router.get('/userprofile', isLoggedIn,(req,res,next) =>{
 
 })
 
+//delete your own posts
+
+router.post('/delete/:id', (req,res,next) => {
+  const { id } = req.params
+  console.log(req.params)
+  console.log("paramss de get ",id);
+  Song.findByIdAndDelete(id)
+  .then(()=>{
+    res.render('users/profile')
+  })
+  .catch((err) => {console.log(err);
+  })
+});
 
 
     
