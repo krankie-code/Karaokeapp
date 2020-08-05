@@ -5,36 +5,34 @@ var router = express.Router();
 const User = require('../models/user');
 const Song = require('../models/song');
 
+const isLoggedIn = (req, res, next) => {
+    if (req.session.currentUser) {
+      next();
+    }
+    else {
+        res.redirect("/auth/login");
+    }  
+  }
 
-router.get('/userprofile', (req,res,next) =>{
-    const {_id} = req.session.currentUser
-    User.findOne({_id})
+router.get('/userprofile', isLoggedIn,(req,res,next) =>{
+    const userId = req.session.currentUser._id;
+    let favToPrint = [];
+    User.findById(userId)
+    .populate({
+        path : 'favouriteSongs',
+        populate : {
+          path : 'userId'
+        }
+      })
     .then((user)=>{
         res.render('profiles/userprofile', {newUser: user})
 
     })
     .catch((error)=>res.render('profiles/userprofile',{error : `RIP`}) )
-})
-   /*  const userId = req.session.currentUser._id;
-    let favToPrint = [];
-    User.findById( {_id : userId})
-    .populate('favouriteSongs')
-    .then((user)=>{
-        Promise.all(user.favouriteSongs.map(song =>{
-            return Song.findById({ _id: song._id})
-                .populate('userId')
-                .then(data =>{
-                    favToPrint.push({
-                        userId:{
-                            user: data.userId.name
-                        }
 
-                    })
-                    return data;
-                })    
-        }))
-        
-    })
-}) */
+})
+
+
+    
 
 module.exports = router;

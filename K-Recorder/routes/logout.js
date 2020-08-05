@@ -1,4 +1,4 @@
-var express = require('express');
+/* var express = require('express');
 var router = express.Router();
 // GET '/logout'
 router.get('/logout', (req, res, next) => {
@@ -6,4 +6,4 @@ router.get('/logout', (req, res, next) => {
     res.redirect('/');
   })
 });
-module.exports = router;
+module.exports = router; */

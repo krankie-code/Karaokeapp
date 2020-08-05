@@ -6,25 +6,16 @@ const User = require('./../models/user');
 
 // delete profile
 router.post('/delete/:id', (req, res, next) => {
-    const { userId } = req.params;
+    const userId  = req.session.currentUser._id;
     User.deleteOne({_id:userId})
         .then( (user) => {
             console.log(user);
             
-            res.redirect('/auth/signin');
+            res.redirect('/auth/signup');
         })
         .catch( err => console.log(err));
 });
 
-/* router.post('/', parser.single('profilepic'), (req,res,next) => {
-    const userId = req.session.currentUser._id;
-    const { name,password,email,profilepic,bio} = req.body;
-    
-    if (typeof req.file != 'undefined') {
-        image_url= req.file.secure_url;
-    } else {
-        image_url= '/images/avatar.png';
-    } */
     router.post('/edit-profile', parser.single('profilepic'),( req,res,next) => {
         const userId = req.session.currentUser._id;
         // 1 destrcture username and password    
@@ -50,7 +41,16 @@ router.post('/delete/:id', (req, res, next) => {
 
 });
 
-router.get('/edit-profile',( req,res,next) => {
+    const isLoggedIn = (req, res, next) => {
+        if (req.session.currentUser) {
+        next();
+        }
+        else {
+            res.redirect("/auth/login");
+        }  
+    }
+  
+router.get('/edit-profile',isLoggedIn,( req,res,next) => {
     const userId = req.session.currentUser._id;
     User.findById({_id: userId})
         .then((user) => {
